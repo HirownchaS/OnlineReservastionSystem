@@ -30,15 +30,10 @@ class ReservationController extends Controller
     {
         // Validate the form data
         Reservation::create($request->all());
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255',
-        //     'phone' => 'required|string|max:15',
-        //     'date' => 'required|date|after_or_equal:today',
-        //     'time' => 'required',
-        //     'guests' => 'required|integer|min:1|max:20',
-        // ]);
+        
 
+        // Dispatch the event
+    event(new ReservationCreated($reservation));
 
         return redirect()->route('reservations.index')->with('success', 'Your reservation has been successfully submitted!');
     }
