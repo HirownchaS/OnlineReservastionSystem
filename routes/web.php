@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\QueryController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Users\AdminController;
 // Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -12,8 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Service Page
 Route::get('/services', [HomeController::class, 'services'])->name('services');
 
-// Reservation Page
-Route::get('/reservations', [HomeController::class, 'reservations'])->name('reservation');
+
 
 Route::get('/queries', [QueryController::class, 'index'])->name('queries.index');
 Route::get('/queries/create', [QueryController::class, 'create'])->name('queries.create');
@@ -35,6 +35,9 @@ Route::delete('/reservation/destory/{id}', [ReservationController::class, 'destr
 // Grouped under the auth middleware to ensure only logged-in users can access
 Route::middleware(['auth'])->group(function () {
     Route::post('/reservations', [HomeController::class, 'submitReservation'])->name('reservations.submit');
+Route::get('/reservations', [HomeController::class, 'reservations'])->name('reservation');
+Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
+Route::get('/log-out',[AuthenticatedSessionController, 'log_out'])->name('log-out');
 });
 
 
@@ -67,11 +70,7 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 
 // Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::post('/logout',[AdminController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('Layout.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

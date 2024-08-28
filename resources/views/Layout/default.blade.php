@@ -20,14 +20,31 @@
                 <li><a href="{{ route("services") }}">Services</a></li>
                 <li><a href="{{ route("reservation") }}">Reservations</a></li>
                 <li><a href="{{ route("contact") }}">Contact Us</a></li>
-
+                @if(Auth::user())
+                <li><a href= href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                       <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                
+                @else
+                <li><a href="{{ route("login") }}">Login</a></li>
+                @endif
+                
             </ul>
         </nav>
     </header>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+        @csrf
+    </form>
+    
     @yield('content')
-    <footer class="bg-dark text-white text-center py-3">
+    
+    <footer class="bg-dark text-white text-center py-3 mt-10">
         <p>&copy; 2024 ABC Restaurant. All Rights Reserved.</p>
     </footer>
+<!-- Logout Form -->
 
     <!-- Add Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

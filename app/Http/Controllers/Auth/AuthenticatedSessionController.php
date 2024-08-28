@@ -27,17 +27,35 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
 
-        if($request->user()->role_type==='admin'|| $request->user()->role_type==='staff'){
+        if(Auth::user()->role_type==='admin'||Auth::user()->role_type==='staff'){
             return redirect()->intended('/dashboard');
         }
         else{
             return redirect()->intended('/reservations');
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('reservation', absolute: false));
     }
 
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('dashboard');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
     /**
      * Destroy an authenticated session.
      */
@@ -48,6 +66,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+    public function log_out() {
+        Auth::guard('web')->logout();
+
+        session()->unset();
 
         return redirect('/');
     }

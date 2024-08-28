@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Home;
 use Illuminate\Http\Request;
+use Auth;
 use App\Models\Contact;
 class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    
+    public function dashboard(){
+        if(Auth::user()->role_type==='customer'){
+            return redirect('/reservations');
+        }
+        return view('Layout.dashboard');
+    }
+
     public function index()
     {
         return view ('home');
