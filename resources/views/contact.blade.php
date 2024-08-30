@@ -1,25 +1,7 @@
 @extends('Layout.default')
 
 @section('content')
-    {{-- <main>
-        <section>
-            <img src="{{ asset("images/contact.jpg") }}" alt="Contact Us" style="width:100%; height:auto;">
-            <h2>Get in Touch</h2>
-            <form action="{{ route("contact") }}" method="post">
-                @csrf
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-
-                <label for="message">Message:</label><br>
-                <textarea id="message" name="message" rows="5" cols="30" required></textarea><br><br>
-
-                <input type="submit" value="Send Message">
-            </form>
-        </section>
-    </main> --}}
+    
     <main class="container my-5">
         <h1>Contact Us</h1>
     <p>We'd love to hear from you! Feel free to reach out with any questions or feedback.</p>
@@ -53,7 +35,9 @@
                         <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                     </div>
+                    <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
                 </form>
             </div>
         </div>

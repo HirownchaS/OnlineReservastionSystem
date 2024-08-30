@@ -140,13 +140,13 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                @if (Auth::user()->role_type == 'admin')
+                @if (Auth::user()->role == 'admin')
 
-            <a class="navbar-brand" href="">{{Auth::user()->role_type}}Dashboard</a>
-            @elseif (Auth::user()->role_type == 'staff')
-            <a class="navbar-brand" href="">{{Auth::user()->role_type}}Dashboard</a>
+            <a class="navbar-brand" href="">{{Auth::user()->role}}Dashboard</a>
+            @elseif (Auth::user()->role == 'staff')
+            <a class="navbar-brand" href="">{{Auth::user()->role}}Dashboard</a>
             @else
-            <a class="navbar-brand" href="">{{Auth::user()->role_type}}Dashboard</a>
+            <a class="navbar-brand" href="">{{Auth::user()->role}}Dashboard</a>
             @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

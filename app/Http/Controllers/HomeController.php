@@ -6,13 +6,14 @@ use App\Models\Home;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Contact;
+use App\Models\Reservation;
 class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function dashboard(){
-        if(Auth::user()->role_type==='customer'){
+        if(Auth::user()->role==='customer'){
             return redirect('/reservations');
         }
         return view('Layout.dashboard');

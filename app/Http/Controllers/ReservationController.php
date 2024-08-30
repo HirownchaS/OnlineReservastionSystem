@@ -33,7 +33,7 @@ class ReservationController extends Controller
         
 
         // Dispatch the event
-    event(new ReservationCreated($reservation));
+    // event(new ReservationCreated($reservation));
 
         return redirect()->route('reservations.index')->with('success', 'Your reservation has been successfully submitted!');
     }
@@ -51,17 +51,25 @@ class ReservationController extends Controller
 
     public function update(Request $request, $id)
     {
-       $validated= $request->validate([
-        'phone' => 'required|min:9',
-        'date' => 'required|date',
-        'time' => 'required|date_format:H:i',
-        'guests' => 'required|integer|min:1',
-        'service_type' => 'required|string|max:255',
-        'status' => 'required|string|in:pending,confirmed,cancelled',
-        ]);
+    //    $validated= $request->validate([
+    //     'phone' => 'required|min:9',
+    //     'date' => 'required|date',
+    //     'time' => 'required|date_format:H:i',
+    //     'guests' => 'required|integer|min:1',
+    //     'service_type' => 'required|string|max:255',
+    //     'status' => 'required|string|in:pending,confirmed,cancelled',
+    //     ]);
 
+    // dd($request);
+    
         $reservation = Reservation::findOrFail($id);
-        $reservation->update($validated);
+        $reservation->phone=$request->phone;
+        $reservation->date=$request->date;
+        $reservation->time=$request->time;
+        $reservation->guests=$request->guests;
+        $reservation->service_type=$request->service_type;
+        $reservation->status=$request->status;
+        $reservation->save();
 
         return redirect()->route('reservations.index')->with('success', 'Reservation updated successfully.');
     }

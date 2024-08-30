@@ -11,7 +11,6 @@ use App\Http\Controllers\Users\AdminController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Service Page
-Route::get('/services', [HomeController::class, 'services'])->name('services');
 
 
 
@@ -36,10 +35,14 @@ Route::delete('/reservation/destory/{id}', [ReservationController::class, 'destr
 Route::middleware(['auth'])->group(function () {
     Route::post('/reservations', [HomeController::class, 'submitReservation'])->name('reservations.submit');
 Route::get('/reservations', [HomeController::class, 'reservations'])->name('reservation');
-Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
 Route::get('/log-out',[AuthenticatedSessionController, 'log_out'])->name('log-out');
+Route::get('/services', [HomeController::class, 'services'])->name('services');
 });
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
+
+});
 
 // Contact Page
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');

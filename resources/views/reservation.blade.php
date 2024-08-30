@@ -1,34 +1,7 @@
 @extends('Layout.default')
 
 @section('content')
-    {{-- <main>
-        <section>
-            <img src="{{ asset("images/reservation.jpg") }}" alt="Reservation" style="width:100%; height:auto;">
-            <h2>Reserve Your Table</h2>
-            <form action="{{ route("reservation") }}" method="post">
-                @csrf
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-
-                <label for="phone">Phone Number:</label>
-                <input type="text" id="phone" name="phone" required><br><br>
-
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" required><br><br>
-
-                <label for="time">Time:</label>
-                <input type="time" id="time" name="time" required><br><br>
-
-                <label for="guests">Number of Guests:</label>
-                <input type="number" id="guests" name="guests" min="1" required><br><br>
-
-                <input type="submit" value="Reserve Now">
-            </form>
-        </section>
-    </main> --}}
+    
     <main class="container my-5">
         <h1>Make a Reservation</h1>
         <p>Plan your perfect dining experience with us</p>
@@ -48,7 +21,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form action="{{ route('reservations.store') }}" method="POST">
+                <form action="{{ route('reservations.submit') }}" method="POST">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 

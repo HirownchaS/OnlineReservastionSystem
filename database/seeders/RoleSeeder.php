@@ -21,14 +21,14 @@ class RoleSeeder extends Seeder
             'lname'=>'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
-            'role_type'=>'admin',
+            'role'=>'admin',
         ]);
         DB::table('users')->insert([
             'fname' => 'Staff',
             'lname'=>'Staff',
             'email' => 'staff@gmail.com',
             'password' => Hash::make('staff123'),
-            'role_type'=>'staff',
+            'role'=>'staff',
         ]);
 
 

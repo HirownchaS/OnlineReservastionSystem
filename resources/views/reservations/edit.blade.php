@@ -9,7 +9,7 @@
         <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
             @csrf
             @method('PUT')
-            {{-- <input type="hidden" name="user_id" value="{{ auth()->id() }}"> --}}
+            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone</label>
