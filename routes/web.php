@@ -33,16 +33,14 @@ Route::delete('/reservation/destory/{id}', [ReservationController::class, 'destr
 // Route::get('/reservations/success', [ReservationController::class, 'success'])->name('reservations.success');
 // Grouped under the auth middleware to ensure only logged-in users can access
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
     Route::post('/reservations', [HomeController::class, 'submitReservation'])->name('reservations.submit');
 Route::get('/reservations', [HomeController::class, 'reservations'])->name('reservation');
-Route::get('/log-out',[AuthenticatedSessionController, 'log_out'])->name('log-out');
+// Route::get('/log-out',[AuthenticatedSessionController, 'log_out'])->name('log-out');
 Route::get('/services', [HomeController::class, 'services'])->name('services');
 });
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
 
-});
 
 // Contact Page
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');

@@ -24,7 +24,8 @@
                 @foreach($reservations as $reservation)
                     <tr>
                         <td>{{ $reservation->id }}</td>
-                        <td>{{ Auth::user()->fname }}</td>
+                        {{-- <td>{{ $reservation->user_id }}</td> --}}
+                        <td>{{ $reservation->user->fname}} {{$reservation->user->lname}}</td>
                         <td>{{$reservation->phone}}</td>
                         <td>{{ $reservation->service_type }}</td>
                         <td>{{ $reservation->guests }}</td>
