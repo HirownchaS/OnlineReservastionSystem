@@ -29,6 +29,9 @@ class HomeController extends Controller
         return view('services');
     }
 
+    public function menus(){
+        return view ('menu');
+    }
     public function reservations()
     {
         return view('reservation');

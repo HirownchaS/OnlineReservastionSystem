@@ -1,4 +1,4 @@
-<!-- resources/views/reservations/edit.blade.php -->
+
 
 @extends('Layout.dashboard')
 

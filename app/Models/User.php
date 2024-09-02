@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,12 +50,17 @@ class User extends Authenticatable
 
     }
     public function reservations()
-        {
-            return $this->hasMany(Reservation::class);
-        }
+    {
+        return $this->hasMany(Reservation::class);
+    }
 
-        public function queries()
-        {
-            return $this->hasMany(Query::class);
-        }
+    public function queries()
+    {
+        return $this->hasMany(Query::class);
+    }
+    public function hasRole(string $role)
+    {
+        return $this->role === $role;
+    }
+
 }

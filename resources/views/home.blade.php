@@ -11,7 +11,8 @@
         </section>
     </main> --}}
 
-    <!-- Gallery Section --><main class="container my-5">
+    <!-- Gallery Section -->
+    <main class="container my-5">
     <section class="gallery-section py-5 bg-light">
         <div class="container">
             <h2 class="text-center mb-4">Our Gallery</h2>

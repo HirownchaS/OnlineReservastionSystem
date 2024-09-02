@@ -79,6 +79,8 @@
         <a href="{{route('dashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href=""><i class="fas fa-users"></i> Users</a>
         <a href="{{route('reservations.index')}}"><i class="fas fa-calendar-alt"></i> Reservations</a>
+        <a href="{{route('menus.index')}}"><i class="fas fa-file-alt"></i> Menu</a>
+        <a href="{{route('categories.index')}}"><i class="fas fa-file-alt"></i> Category</a>
         <a href=""><i class="fas fa-file-alt"></i> Reports</a>
         <a href="{{route('queries.index')}}"><i class="fas fa-cogs"></i> Queries</a>
     </div>

@@ -1,10 +1,10 @@
-<!-- resources/views/reservations/index.blade.php -->
+
 
 @extends('Layout.dashboard')
 
 @section('content')
     <div class="container">
-        <h1>Your Reservations</h1>
+        <h1>Your Reports</h1>
         <a href="{{ route('reservations.create') }}" class="btn btn-primary">Create Reservation</a>
 
         <table class="table table-striped">
