@@ -53,23 +53,6 @@ class HomeController extends Controller
         Contact::create($request->all());
         return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
 
-        // Validate the form data
-        // $validated = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|max:255',
-        //     'message' => 'required|string|min:10',
-        // ]);
-
-        // Save data to the database
-        // $contact=Contact::create($validated);
-
-
-    //     Contact::create([
-    //     'name' => $request->input('name'),
-    //     'email' => $request->input('email'),
-    //     'message' => $request->input('message'),
-    // ]);
-
 
     }
 

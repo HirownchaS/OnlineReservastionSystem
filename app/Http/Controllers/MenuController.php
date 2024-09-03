@@ -51,39 +51,71 @@ class MenuController extends Controller
         $categories = Category::all();
         return view('menus.edit',compact('categories','menus'));
     }
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, $id)
+    {
+        // Find the menu by ID
+        $menu = Menu::findOrFail($id);
+    
+        // Validate the input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'price' => 'required|numeric',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:categories,id',
+        ]);
+    
+        // Check if a new image is uploaded
+        if ($request->hasFile('image')) {
+            // Store the new image
+            $image = $request->file('image')->store('public/menus');
+            
+            // Delete the old image from storage
+            if ($menu->image) {
+                Storage::delete($menu->image);
+            }
+    
+            // Update the menu with the new image
+            $menu->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'image' => $image,
+                'price' => $request->price,
+            ]);
+        } else {
+            // Update the menu without changing the image
+            $menu->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+            ]);
+        }
+    
+        // Update the categories associated with the menu
+        if ($request->has('categories')) {
+            $menu->categories()->sync($request->categories);
+        }
+    
+        return redirect()->route('menus.index')->with('success', 'Menu updated successfully.');
+    }
+    public function destroy($id)
 {
-    // Validate the incoming request data
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-        'categories' => 'required|array', // Validate categories
-        'categories.*' => 'exists:categories,id', // Ensure each category ID exists
-    ]);
 
-    // Handle image upload if a new image is provided
-    $image = $menu->image; // Keep the current image if no new image is uploaded
-    if ($request->hasFile('image')) {
-        Storage::delete($menu->image); // Delete the old image
-        $image = $request->file('image')->store('public/menus'); // Store the new image
+    $menu = Menu::findOrFail($id);
+
+    // Delete the image from storage
+    if ($menu->image) {
+        Storage::delete($menu->image);
     }
 
-    // Update the menu with the new data
-    $menu->update([
-        'name' => $request->name,
-        'description' => $request->description,
-        'image' => $image,
-        'price' => $request->price,
-    ]);
+    // Detach all categories associated with the menu
+    $menu->categories()->detach();
 
-    // Update the categories associated with this menu
-    if ($request->has('categories')) {
-        $menu->categories()->sync($request->categories);
-    }
-
-    // Redirect back to the menus index with a success message
-    return redirect()->route('menus.index')->with('success', 'Menu updated successfully.');
+    // Delete the menu from the database
+    $menu->delete();
+    return redirect()->route('menus.index')->with('success', 'Menu deleted successfully.');
 }
+    
 
 }

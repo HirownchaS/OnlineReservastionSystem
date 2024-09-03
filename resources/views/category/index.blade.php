@@ -10,8 +10,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Image</th>
                 <th>Description</th>
+                <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,16 +27,16 @@
                         No image available
                     @endif</td>
                    
-                    <td>{{ $category->status }}</td>
-                    {{-- <td>
+                    
+                    <td>
                        
-                        <a href="{{ route('categories.edit', $menus->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('categories.destroy', $menus->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                    </td> --}}
+                    </td>
                 </tr>
             @endforeach 
         </tbody>

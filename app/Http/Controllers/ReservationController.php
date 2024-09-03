@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
+use App\Events\ReservationCreated;
+use App\Notifications\ReservationStatusChanged;
 class ReservationController extends Controller
 {
     // public function __construct()
@@ -29,11 +31,11 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         // Validate the form data
-        Reservation::create($request->all());
+       $reservation= Reservation::create($request->all());
         
 
         // Dispatch the event
-    // event(new ReservationCreated($reservation));
+    event(new ReservationCreated($reservation));
 
         return redirect()->route('reservations.index')->with('success', 'Your reservation has been successfully submitted!');
     }
@@ -80,5 +82,28 @@ class ReservationController extends Controller
         $reservation->delete();
 
         return redirect()->route('reservations.index')->with('success', 'Reservation deleted successfully.');
+    }
+    public function confirm($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->status = 'confirmed';
+        $reservation->save();
+
+        // Notify the user
+        $reservation->user->notify(new ReservationStatusChanged($reservation, 'confirmed'));
+
+        return redirect()->back()->with('success', 'Reservation confirmed!');
+    }
+
+    public function cancel($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->status = 'cancelled';
+        $reservation->save();
+
+        // Notify the user
+        $reservation->user->notify(new ReservationStatusChanged($reservation, 'cancelled'));
+
+        return redirect()->back()->with('success', 'Reservation cancelled!');
     }
 }

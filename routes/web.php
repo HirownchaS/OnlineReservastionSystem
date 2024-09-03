@@ -9,6 +9,8 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Users\AdminController;
+
+
 // Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -51,10 +53,12 @@ Route::delete('/queries/destroy/{id}', [QueryController::class, 'destroy'])->nam
 Route::middleware(['auth'])->group(function () {
     Route::post('/reservations', [HomeController::class, 'submitReservation'])->name('reservations.submit');
     Route::get('/reservations', [HomeController::class, 'reservations'])->name('reservation');
-    // Route::get('/log-out',[AuthenticatedSessionController, 'log_out'])->name('log-out');
-    Route::get('/services', [HomeController::class, 'services'])->name('services');
+    Route::get('/log-out',[AuthenticatedSessionController::class, 'log_out'])->name('log-out');
     Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
 });
+
+//service page
+Route::get('/services', [HomeController::class, 'services'])->name('services');
 
 
 // Contact Page
@@ -65,28 +69,18 @@ Route::post('/contact', [HomeController::class, 'submitContact'])->name('contact
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 //menu page
 Route::get('/menus', [HomeController::class,  'menus'])->name('menus');
-// Auth::routes();
-
-// Redirect to dashboard based on role
-// Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
-
-// // Admin, Staff, and Customer routes
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin.dashboard');
-// });
-
-// Route::middleware(['auth', 'role:staff'])->group(function () {
-//     Route::get('/staff', [App\Http\Controllers\AdminController::class, 'staff'])->name('staff.dashboard');
-// });
-
-// Route::middleware(['auth', 'role:customer'])->group(function () {
-//     Route::get('/', [App\Http\Controllers\AdminController::class, 'customer'])->name('customer.dashboard');
-// });
 
 
 
+//email notification
+Route::get('/notifications/read/{id}', function ($id) {
+    $notification = Auth::user()->notifications()->find($id);
+    if ($notification) {
+        $notification->markAsRead();
+    }
+    return redirect()->back();
+})->name('notifications.read');
 
-// Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
 
 // Route::middleware('auth')->group(function () {

@@ -4,6 +4,9 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ReservationCreated;
+use App\Mail\ReservationConfirmed;
+use Illuminate\Support\Facades\Mail;
 
 class SendReservationNotification
 {

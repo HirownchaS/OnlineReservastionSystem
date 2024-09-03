@@ -1,16 +1,7 @@
-<!-- resources/views/home.blade.php -->
 
 @extends('Layout.default')
 
 @section('content')
-    {{-- <main>
-        <section>
-            <img src="{{ asset('assets/images/home.jpg') }}" alt="Restaurant" style="width:100%; height:auto;">
-            <h2>Experience the Best Dining in Town</h2>
-            <p>Join us for a delightful dining experience.</p>
-        </section>
-    </main> --}}
-
     <!-- Gallery Section -->
     <main class="container my-5">
     <section class="gallery-section py-5 bg-light">
