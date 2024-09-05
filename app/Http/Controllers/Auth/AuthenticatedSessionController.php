@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended('/reservations');
         }
 
-        return redirect()->intended(route('reservation', absolute: false));
+        // return redirect()->intended(route('reservation', absolute: false));
     }
 
     public function authenticate(Request $request): RedirectResponse

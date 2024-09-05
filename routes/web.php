@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Users\AdminController;
 
 
+
+
 // Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

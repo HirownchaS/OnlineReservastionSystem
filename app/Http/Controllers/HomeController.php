@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Contact;
 use App\Models\Reservation;
+use App\Models\Menu;
 class HomeController extends Controller
 {
     /**
@@ -30,7 +31,8 @@ class HomeController extends Controller
     }
 
     public function menus(){
-        return view ('menu');
+        $menus=Menu::all();
+        return view ('menu', compact('menus'));
     }
     public function reservations()
     {

@@ -7,6 +7,8 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use App\Events\ReservationCreated;
 use App\Notifications\ReservationStatusChanged;
+use App\Mail\ReservationStatusMail;
+use Illuminate\Support\Facades\Mail;
 class ReservationController extends Controller
 {
     // public function __construct()
@@ -38,6 +40,7 @@ class ReservationController extends Controller
     event(new ReservationCreated($reservation));
 
         return redirect()->route('reservations.index')->with('success', 'Your reservation has been successfully submitted!');
+        
     }
     // public function show($id)
     // {
@@ -91,6 +94,8 @@ class ReservationController extends Controller
 
         // Notify the user
         $reservation->user->notify(new ReservationStatusChanged($reservation, 'confirmed'));
+         // Send email notification
+    Mail::to($reservation->customer->email)->send(new ReservationStatusMail($reservation, 'confirmed'));
 
         return redirect()->back()->with('success', 'Reservation confirmed!');
     }
@@ -103,7 +108,8 @@ class ReservationController extends Controller
 
         // Notify the user
         $reservation->user->notify(new ReservationStatusChanged($reservation, 'cancelled'));
-
+         // Send email notification
+    Mail::to($reservation->customer->email)->send(new ReservationStatusMail($reservation, 'cancelled'));
         return redirect()->back()->with('success', 'Reservation cancelled!');
     }
 }
