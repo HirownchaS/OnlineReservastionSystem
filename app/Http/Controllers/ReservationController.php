@@ -9,6 +9,7 @@ use App\Events\ReservationCreated;
 use App\Notifications\ReservationStatusChanged;
 use App\Mail\ReservationStatusMail;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\ReservationConfirmedNotification;
 class ReservationController extends Controller
 {
     // public function __construct()
@@ -93,9 +94,9 @@ class ReservationController extends Controller
         $reservation->save();
 
         // Notify the user
-        $reservation->user->notify(new ReservationStatusChanged($reservation, 'confirmed'));
-         // Send email notification
-    Mail::to($reservation->customer->email)->send(new ReservationStatusMail($reservation, 'confirmed'));
+        // Send a notification to the customer
+    
+   $reservation->user->notify(new ReservationConfirmedNotification($reservation));
 
         return redirect()->back()->with('success', 'Reservation confirmed!');
     }

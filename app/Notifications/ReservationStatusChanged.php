@@ -32,7 +32,7 @@ class ReservationStatusChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -57,7 +57,7 @@ class ReservationStatusChanged extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
             'reservation_id' => $this->reservation->id,

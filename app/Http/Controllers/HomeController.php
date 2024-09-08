@@ -8,6 +8,8 @@ use Auth;
 use App\Models\Contact;
 use App\Models\Reservation;
 use App\Models\Menu;
+use App\Models\User;
+use App\Notifications\ReservationCancelledNotification;
 class HomeController extends Controller
 {
     /**
@@ -36,7 +38,8 @@ class HomeController extends Controller
     }
     public function reservations()
     {
-        return view('reservation');
+        $reservations=Reservation::where('user_id',Auth::user()->id)->get();
+        return view('reservation', compact('reservations'));
     }
 
     public function submitReservation(Request $request)
@@ -58,6 +61,19 @@ class HomeController extends Controller
 
     }
 
+    public function cancelReservation($id)
+    {
+        $reservation = Reservation::findOrFail($id); // Find reservation by id
+        $reservation->delete(); // Delete the reservation
+
+        // Send notification to the admin
+    $admin = User::where('role', 'admin')->first(); // Adjust to your setup for finding the admin
+    if ($admin) {
+        $admin->notify(new ReservationCancelledNotification($reservation));
+    }
+
+        return redirect()->route('reservation')->with('Reservation cancelled successfully.');
+    }
     public function about()
     {
         return view('about');

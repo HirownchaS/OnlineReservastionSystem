@@ -13,4 +13,8 @@ class Contact extends Model
         'email',
         'message',
     ];
+    public function queries()
+    {
+        return $this->hasMany(Query::class);
+    }
 }

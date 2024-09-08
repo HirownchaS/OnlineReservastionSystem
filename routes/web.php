@@ -8,6 +8,7 @@ use App\Http\Controllers\QueryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Users\AdminController;
 
 
@@ -15,6 +16,13 @@ use App\Http\Controllers\Users\AdminController;
 
 // Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//reservation cancel
+Route::delete('/reservations/{id}',  [HomeController::class,'cancelReservation'])->name('reservation.cancel');
+
+//reservation confirm
+// web.php
+Route::post('/reservations/{id}/confirm', [ReservationController::class, 'confirmReservation'])->name('reservations.confirm');
+
 
 // admin dashboard reservation Page
 Route::get('/reservation', [ReservationController::class, 'index'])->name('reservations.index');
@@ -41,15 +49,13 @@ Route::delete('/category/destory/{id}', [CategoryController::class, 'destroy'])-
 
 // admin dashboard query Page
 Route::get('/queries', [QueryController::class, 'index'])->name('queries.index');
-Route::get('/queries/create', [QueryController::class, 'create'])->name('queries.create');
-Route::post('/queries/store', [QueryController::class, 'store'])->name('queries.store');
 // Route::get('/queries/{query}', [QueryController::class, 'show'])->name('queries.show');
 Route::get('/queries/edit/{id}',[QueryController::class,'edit'])->name('queries.edit');
 Route::put('/queries/update/{id}', [QueryController::class, 'update'])->name('queries.update');
 Route::delete('/queries/destroy/{id}', [QueryController::class, 'destroy'])->name('queries.destroy');
 
 
-
+Route::get('/reports', [ReportController::class,'index'])->name('reports.index');
 
 // Grouped under the auth middleware to ensure only logged-in users can access
 Route::middleware(['auth'])->group(function () {
@@ -71,6 +77,12 @@ Route::post('/contact', [HomeController::class, 'submitContact'])->name('contact
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 //menu page
 Route::get('/menus', [HomeController::class,  'menus'])->name('menus');
+
+//notification marksasread
+Route::post('/notifications/mark-as-read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return back();
+})->name('notifications.markAsRead');
 
 
 

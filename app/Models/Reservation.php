@@ -20,7 +20,7 @@ class Reservation extends Model
     // Define the relationship if needed
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function payment()

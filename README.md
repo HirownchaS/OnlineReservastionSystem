@@ -25,12 +25,6 @@ The Online Reservation System for ABC Restaurant is a comprehensive, user-friend
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/HirownchaS/OnlineReservastionSystem.git
-
-   cd abc-restaurant-reservation
-   Install dependencies:
-
 2. composer install
     npm install
 3. Set up the environment:

@@ -5,12 +5,12 @@
 @section('content')
     <div class="container">
         <h1>Queries</h1>
-        <a href="{{ route('queries.create')}}" class="btn btn-primary">Query</a>
+        {{-- <a href="{{ route('queries.create')}}" class="btn btn-primary">Query</a> --}}
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Query</th>
+                    <th>Message</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -20,7 +20,7 @@
                     <tr>
                         <td>{{ $query->id }}</td>
                         
-                        <td>{{$query->query}}</td>
+                        <td>{{$query->status}}</td>
 
                         <td>{{ $query->status }}</td>
 
